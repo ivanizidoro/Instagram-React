@@ -3,7 +3,8 @@ import { useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 
 import { NavBar } from "./components/navbar";
-import { Header } from "./components/header"
+import { Header } from "./components/header";
+import { Stories } from "./components/stories";
 
 
 import { Flex, Screen } from "./style";
@@ -25,6 +26,7 @@ function App() {
 
         <Flex gap="2px">
           <Header />
+          <Stories />
         </Flex>
        
       </Screen>
