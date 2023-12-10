@@ -5,7 +5,7 @@ import * as C from './style'
 
 export function Stories() {
     const [showAll, setShowAll] = useState(false);
-    const numberArray = showAll ? 20 : 8;
+    const numberArray = showAll ? 50 : 10;
 
     function handleShowAll(){
         setShowAll(!showAll);

@@ -5,6 +5,7 @@ import styled, { ThemeProvider } from "styled-components";
 import { NavBar } from "./components/navbar";
 import { Header } from "./components/header";
 import { Stories } from "./components/stories";
+import { Publications } from "./components/publications"
 
 
 import { Flex, Screen } from "./style";
@@ -27,6 +28,7 @@ function App() {
         <Flex gap="2px">
           <Header />
           <Stories />
+          <Publications />
         </Flex>
        
       </Screen>
