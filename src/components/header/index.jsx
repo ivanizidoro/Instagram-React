@@ -19,7 +19,5 @@ export function Header(){
                     </C.Button>
                 </C.ContainerActions>
         </C.Container>
-
-
     );
 };
