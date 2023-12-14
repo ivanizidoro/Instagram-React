@@ -1,22 +1,42 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-import styled, { ThemeProvider } from "styled-components";
+import { ThemeProvider } from "styled-components";
 
 import { NavBar } from "./components/navbar";
 import { Header } from "./components/header";
 import { Stories } from "./components/stories";
 import { Publications } from "./components/publications"
+import { getPhotos } from "./services/photos";
 
 
 import { Flex, Screen } from "./style";
 import { darkTheme, lightTheme } from "./style/theme";
 
 function App() {
+
+  const PHOTOS_PER_PAGE = 20;
+
   const [theme, setTheme] = useState('dark');
+  const [photos, setPhotos] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [photosPerPage, setPhotosPerPage] = useState(PHOTOS_PER_PAGE);
+
+  const releaseLoading = () => setIsLoading(false);
 
   const themeToggler = () => {
     theme === 'light' ? setTheme('dark') : setTheme('light');
+  };
+
+  async function fetchPhotos() {
+    const data = await getPhotos(photosPerPage, releaseLoading);
+    setPhotos(data);
   }
+
+  console.log(photos);
+
+  useEffect(() => {
+    fetchPhotos();
+  }, []);
 
   return (
 
@@ -27,10 +47,10 @@ function App() {
 
         <Flex gap="2px">
           <Header />
-          <Stories />
-          <Publications />
+          <Stories photos={photos}/>
+          <Publications photos={photos}/>
         </Flex>
-       
+
       </Screen>
     </ThemeProvider>
   )
