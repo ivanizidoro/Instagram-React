@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import ReactLoading from 'react-loading';
 import { ThemeProvider } from "styled-components";
 
 import { NavBar } from "./components/navbar";
@@ -9,12 +9,12 @@ import { Publications } from "./components/publications"
 import { getPhotos } from "./services/photos";
 
 
-import { Flex, Screen } from "./style";
+import { Button, Flex, Screen, Typography } from "./style";
 import { darkTheme, lightTheme } from "./style/theme";
 
 function App() {
 
-  const PHOTOS_PER_PAGE = 20;
+  const PHOTOS_PER_PAGE = 12;
 
   const [theme, setTheme] = useState('dark');
   const [photos, setPhotos] = useState([]);
@@ -27,7 +27,12 @@ function App() {
     theme === 'light' ? setTheme('dark') : setTheme('light');
   };
 
+  const handlePhotosPerPage = () => {
+    setPhotosPerPage(photosPerPage + PHOTOS_PER_PAGE);
+  };
+
   async function fetchPhotos() {
+    setIsLoading(true)
     const data = await getPhotos(photosPerPage, releaseLoading);
     setPhotos(data);
   }
@@ -36,7 +41,7 @@ function App() {
 
   useEffect(() => {
     fetchPhotos();
-  }, []);
+  }, [photosPerPage]);
 
   return (
 
@@ -47,8 +52,23 @@ function App() {
 
         <Flex gap="2px">
           <Header />
-          <Stories photos={photos}/>
-          <Publications photos={photos}/>
+          <Stories photos={photos} />
+          <Publications photos={photos} />
+
+          {
+            isLoading ? (
+              <ReactLoading
+                type="spinningBubbles"
+                color={theme.textPrimary}
+                height={20}
+                width={20}
+              />
+            ) : (
+              <Button onClick={handlePhotosPerPage}>
+                <Typography>Ver mais</Typography>
+              </Button>
+            )
+          }
         </Flex>
 
       </Screen>

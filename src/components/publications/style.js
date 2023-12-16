@@ -13,7 +13,7 @@ export const ContainerPublications = styled.div`
     width: 100%;
     flex-wrap: wrap;
     gap: 12px;
-    height: 320px;
+    height: 550px;
     overflow-y: scroll;
 
     &::-webkit-scrollbar {
